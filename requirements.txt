@@ -1,0 +1,21 @@
+Objetivo: Você foi contratado para criar uma aplicação de controle de estoque. Cada vez que um produto for vendido o mesmo deverá ser debitado do estoque. Sugerimos dividir a aplicação nas seguintes telas:
+
+• Criação, edição, deleção de produto
+
+• Criação, edição, deleção de estoque
+
+• Listagem de produtos x estoque, deleção de produto x estoque. 
+
+A completude e uso das melhores práticas de desenvolvimento serão levadas em conta nesta avaliação.
+
+Requisitos:
+
+• Todo o código deverá ser versionado e publicado para a apresentação em repositório git.
+
+• As seguintes tecnologias e princípios deverão ser aplicadas: reactjs, materialUi, banco de dados: postgree ou sqlite ou mongodb, nodejs, Clean architeture ou DDD, Git.
+
+• Serão considerados diferenciais: Docker compose com geração do front, back e banco de dados. Tela de login com validação via JWT. Uso de typescript tanto para o backend quanto para o frontend.
+
+Você terá 7 dias para concluir o desafio e nos disponibilizar o link do github. Te desejamos boa sorte e happy coding! =D
+
+Em caso de dúvidas, entre em contato com geovani.raimundo@frexco.com.br.
