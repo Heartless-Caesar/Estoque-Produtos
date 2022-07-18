@@ -3,11 +3,15 @@ const express = require("express");
 const app = express();
 const port = 5000;
 
-try {
-  app.listen(port, () => {
-    await sequelize.sync({force : true})
-    console.log(`App listening on port ${port}...`);
-  });
-} catch (error) {
+const start = async (req, res) => {
+  try {
+    await sequelize.sync({ force: true });
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}...`);
+    });
+  } catch (error) {
     console.log(error);
-}
+  }
+};
+
+start();
