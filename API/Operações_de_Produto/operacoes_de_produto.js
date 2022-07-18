@@ -12,6 +12,7 @@ const createProduct = async (req, res) => {
     if (entryExists) {
       entryExists.quantidade += quantidade;
       entryExists.preco = preco;
+      entryExists.usuarioId = req.user.id;
       await entryExists.save();
 
       return res
@@ -30,6 +31,7 @@ const createProduct = async (req, res) => {
       preco: preco,
       quantidade: quantidade,
       estoqueId: estoqueSelecionado.id,
+      usuarioId: req.user.id,
     });
 
     //Resposta caso criação seja bem sucedida
@@ -72,6 +74,7 @@ const updateProduct = async (req, res) => {
       nome: nome,
       quantidade: quantidade,
       preco: preco,
+      usuarioId: req.user.id,
       where: { nome: nome },
     });
 
@@ -93,3 +96,34 @@ const updateProduct = async (req, res) => {
     });
   }
 };
+
+//DELETE
+const deleteProduct = async (req, res) => {
+  const { nomeProduto, nomeEstoque } = req.body;
+
+  try {
+    const selectedInventory = await estoque.findOne({
+      where: { nome: nomeEstoque },
+    });
+
+    await produto.destroy({
+      where: { nome: nomeProduto, estoqueId: selectedInventory.id },
+    });
+
+    res.status(StatusCodes.OK).json({ msg: "Product deleted" });
+  } catch (error) {
+    //Vetor auxiliar
+    const errorMessages = [];
+
+    //Filtra o erro de forma a colocar apenas a mensagem de erro principal
+    error.errors.forEach((x) => errorMessages.push(x.message));
+
+    //Resposta com as mensagens individuais dos problemas ocorridos
+    res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Algo deu errado ao tentar atualizar o produto",
+      errors: errorMessages,
+    });
+  }
+};
+
+module.exports = { createProduct, deleteProduct, updateProduct };

@@ -1,5 +1,32 @@
 const { StatusCodes } = require("http-status-codes");
-const { estoque } = require("../Data/models");
+const { estoque, produto } = require("../Data/models");
+
+//GET ENTRIES
+const getEstoque = async (req, res) => {
+  const { estoqueSelecionado } = req.body;
+
+  try {
+    const productList = await produto.findAll({
+      where: { estoqueId: estoqueSelecionado.id },
+    });
+
+    res
+      .status(StatusCodes.OK)
+      .json({ msg: "GET successful", products: productList });
+  } catch (error) {
+    //Vetor auxiliar
+    const errorMessages = [];
+
+    //Filtra o erro de forma a colocar apenas a mensagem de erro principal
+    error.errors.forEach((x) => errorMessages.push(x.message));
+
+    //Resposta com as mensagens individuais dos problemas ocorridos
+    res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Algo deu errado ao tentar criar o novo estoque",
+      errors: errorMessages,
+    });
+  }
+};
 
 //CREATE
 const createEstoque = async (req, res) => {
@@ -86,4 +113,4 @@ const deleteEstoque = async (req, res) => {
   }
 };
 
-module.exports = { createEstoque, updateEstoque, deleteEstoque };
+module.exports = { createEstoque, updateEstoque, deleteEstoque, getEstoque };
