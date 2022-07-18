@@ -14,6 +14,9 @@ module.exports = {
       preco: {
         type: Sequelize.INTEGER
       },
+      quantidade: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
