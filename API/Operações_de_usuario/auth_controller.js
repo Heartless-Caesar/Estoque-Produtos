@@ -1,6 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 const { usuario } = require("../Data/models");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const registerUser = async (req, res) => {
   const { username, password } = req.body;
@@ -28,20 +30,31 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
+    const token = jwt.sign(
+      { email: novoUsuario.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.EXPIRES_IN,
+      }
+    );
+
     //Retorno caso o post seja bem sucedido
-    res
-      .status(StatusCodes.OK)
-      .json({ msg: "Novo usuário cadastrado", usuario: novoUsuario });
+    res.status(StatusCodes.OK).json({
+      msg: "Novo usuário cadastrado",
+      usuario: novoUsuario,
+      token: token,
+    });
   } catch (error) {
     //Vetor auxiliar
     const errorMessages = [];
 
+    console.log(error);
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    // error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Algo deu errado ao tentar criar o novo estoque",
+      msg: "Algo deu errado ao tentar criar o novo usuario",
       errors: errorMessages,
     });
   }

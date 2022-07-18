@@ -43,7 +43,7 @@ const createProduct = async (req, res) => {
     const errorMessages = [];
 
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
@@ -87,7 +87,7 @@ const updateProduct = async (req, res) => {
     const errorMessages = [];
 
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
@@ -114,9 +114,9 @@ const deleteProduct = async (req, res) => {
   } catch (error) {
     //Vetor auxiliar
     const errorMessages = [];
-
+    console.log(error);
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({

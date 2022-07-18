@@ -38,10 +38,23 @@ const newSale = async (req, res) => {
       quantidade: quantidade,
     });
 
+    //Retorno para venda realizada
     res
       .status(StatusCodes.OK)
       .json({ msg: "Venda realizada", venda: novaVenda });
-  } catch (error) {}
+  } catch (error) {
+    //Vetor auxiliar
+    const errorMessages = [];
+
+    //Filtra o erro de forma a colocar apenas a mensagem de erro principal
+    error.errors.forEach((x) => errorMessages.push(x.message));
+
+    //Resposta com as mensagens individuais dos problemas ocorridos
+    res.status(StatusCodes.BAD_REQUEST).json({
+      msg: "Algo deu errado ao tentar realizar uma nova venda",
+      errors: errorMessages,
+    });
+  }
 };
 
 module.exports = { newSale };
