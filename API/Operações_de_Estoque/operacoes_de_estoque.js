@@ -3,12 +3,8 @@ const { estoque, produto } = require("../Data/models");
 
 //GET ENTRIES
 const getEstoque = async (req, res) => {
-  const { estoqueSelecionado } = req.body;
-
   try {
-    const productList = await produto.findAll({
-      where: { estoqueId: estoqueSelecionado.id },
-    });
+    const productList = await produto.findAll();
 
     res
       .status(StatusCodes.OK)
@@ -16,7 +12,7 @@ const getEstoque = async (req, res) => {
   } catch (error) {
     //Vetor auxiliar
     const errorMessages = [];
-
+    console.log(error);
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
     //error.errors.forEach((x) => errorMessages.push(x.message));
 

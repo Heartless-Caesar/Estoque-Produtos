@@ -20,7 +20,7 @@ app.use(authMiddleware, inventoryRouter, productRouter);
 
 const start = async (req, res) => {
   try {
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     app.listen(port, () => {
       console.log(`App listening on port ${port}...`);
     });

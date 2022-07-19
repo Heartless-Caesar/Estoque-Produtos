@@ -1,6 +1,6 @@
 {
   "development": {
-    "storage": "../Gaia.db",
+    "storage": "../../Gaia.db",
     "dialect": "sqlite"
   },
   "test": {
