@@ -18,11 +18,11 @@ const getEstoque = async (req, res) => {
     const errorMessages = [];
 
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
-      msg: "Algo deu errado ao tentar criar o novo estoque",
+      msg: "Algo deu errado ao tentar buscar o novo estoque",
       errors: errorMessages,
     });
   }
@@ -46,7 +46,7 @@ const createEstoque = async (req, res) => {
     const errorMessages = [];
 
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
@@ -76,7 +76,7 @@ const updateEstoque = async (req, res) => {
     const errorMessages = [];
 
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
@@ -103,12 +103,12 @@ const deleteEstoque = async (req, res) => {
     const errorMessages = [];
 
     //Filtra o erro de forma a colocar apenas a mensagem de erro principal
-    error.errors.forEach((x) => errorMessages.push(x.message));
+    //error.errors.forEach((x) => errorMessages.push(x.message));
 
     //Resposta com as mensagens individuais dos problemas ocorridos
     res.status(StatusCodes.BAD_REQUEST).json({
       msg: "Algo deu errado ao tentar atualizar o estoque",
-      errors: errorMessages,
+      errors: error,
     });
   }
 };

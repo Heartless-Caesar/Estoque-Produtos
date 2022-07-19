@@ -1,3 +1,7 @@
+//TODO Implementar a busca de todos os produtos em um estoque
+//TODO Implementar criar, editar e excluir um estoque
+//TODO Implementar criar, editar e excluir produtos de um inventário
+
 import {
   Container,
   Card,
@@ -11,6 +15,7 @@ import {
 import { MoreVertOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import authHeader from "../../Services/auth_header";
 
 const InventoryBody = () => {
   const [products, setProducts] = useState([]);
@@ -27,22 +32,24 @@ const InventoryBody = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/estoque/all")
-      .then((res) => setEstoque(res))
+      .get("http://localhost:3000/estoque/all", { headers: authHeader() })
+      .then((res) => setEstoque(res.data.estoques))
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  useEffect(() => {
+  {
+    /*useEffect(() => {
     axios
-      .get("http://localhost:3000/estoque/listar")
+      .get("http://localhost:3000/estoque/listar", { headers: authHeader() })
       .then((res) => setProducts(res))
       .catch((err) => {
         console.log(err);
       });
   }, [estoque]);
-
+*/
+  }
   return (
     <Container>
       <p>Selecione o estoque que deseja visualizar:</p>
@@ -72,16 +79,19 @@ const InventoryBody = () => {
             },
           }}
         >
-          {estoque.map((option) => (
-            <MenuItem key={option} onClick={handleClose}>
-              {option}
-            </MenuItem>
-          ))}
+          {estoque.map((option) => {
+            const { id, nome } = option;
+            return (
+              <MenuItem key={id} onClick={handleClose}>
+                {nome}
+              </MenuItem>
+            );
+          })}
         </Menu>
       </div>
 
       {/* GET PRODUTOS */}
-      {products.map((x) => {
+      {/*{products.map((x) => {
         const { id, nome, quantidade } = x;
         return (
           <Card variant="outlined">
@@ -96,7 +106,7 @@ const InventoryBody = () => {
             </div>
           </Card>
         );
-      })}
+        })}*/}
     </Container>
   );
 };
