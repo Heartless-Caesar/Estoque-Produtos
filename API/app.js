@@ -6,12 +6,16 @@ const { productRouter } = require("./Routes/product_routes");
 const { authRouter } = require("./Routes/auth_routes");
 const { sequelize } = require("./Data/models/index");
 const bodyParser = require("body-parser");
-const port = 5000;
+const port = 3000;
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ force: true }));
 app.use(bodyParser.json());
 
 app.use(authRouter);
+
 app.use(authMiddleware, inventoryRouter, productRouter);
 
 const start = async (req, res) => {

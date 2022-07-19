@@ -113,4 +113,16 @@ const deleteEstoque = async (req, res) => {
   }
 };
 
-module.exports = { createEstoque, updateEstoque, deleteEstoque, getEstoque };
+const getEstoques = async (req, res) => {
+  const estoques = await estoque.findAll();
+
+  res.status(StatusCodes.OK).json({ estoques: estoques });
+};
+
+module.exports = {
+  createEstoque,
+  updateEstoque,
+  deleteEstoque,
+  getEstoque,
+  getEstoques,
+};
