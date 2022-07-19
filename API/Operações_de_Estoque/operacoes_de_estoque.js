@@ -109,10 +109,24 @@ const deleteEstoque = async (req, res) => {
   }
 };
 
-const getEstoques = async (req, res) => {
-  const estoques = await estoque.findAll();
+const getSingle = async (req, res) => {
+  const { id } = req.params;
 
-  res.status(StatusCodes.OK).json({ estoques: estoques });
+  try {
+    const estoque = await estoque.findOne({ where: { id: id } });
+
+    if (!estoque) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: `Elemento de id ${id} não encontrado` });
+    }
+
+    res
+      .status(StatusCodes.OK)
+      .json({ msg: "Elemento encontrado", estoque: estoque });
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: error });
+  }
 };
 
 module.exports = {
@@ -120,5 +134,5 @@ module.exports = {
   updateEstoque,
   deleteEstoque,
   getEstoque,
-  getEstoques,
+  getSingle,
 };

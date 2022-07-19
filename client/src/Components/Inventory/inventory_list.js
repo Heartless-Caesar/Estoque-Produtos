@@ -5,18 +5,23 @@
 import {
   Container,
   Card,
-  CardActionArea,
   CardContent,
   Typography,
   Button,
 } from "@mui/material";
-import { MoreVertOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import authHeader from "../../Services/auth_header";
-
+import { Link } from "react-router-dom";
 const InventoryBody = () => {
   const [products, setProducts] = useState([]);
+
+  const cardStyle = {
+    display: "block",
+    transitionDuration: "0.3s",
+    height: "45vw",
+    marginTop: "10px",
+  };
 
   useEffect(() => {
     axios
@@ -34,7 +39,7 @@ const InventoryBody = () => {
       {products.map((x) => {
         const { id, nome, quantidade } = x;
         return (
-          <Card variant="outlined" style={{ marginTop: "10px" }}>
+          <Card variant="outlined" style={cardStyle}>
             <div key={id}>
               <CardContent>
                 <Typography variant="body2" color="text.secondary">
@@ -45,14 +50,7 @@ const InventoryBody = () => {
                   color="primary"
                   style={{ marginLeft: "5px" }}
                 >
-                  Edit
-                </Button>
-                <Button
-                  type="button"
-                  color="danger"
-                  style={{ marginLeft: "5px" }}
-                >
-                  Delete
+                  <Link to={`/estoque/${id}`}>Opções</Link>
                 </Button>
               </CardContent>
             </div>

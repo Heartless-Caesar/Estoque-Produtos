@@ -5,13 +5,13 @@ const {
   updateEstoque,
   deleteEstoque,
   getEstoque,
-  getEstoques,
+  getSingle,
 } = require("../Operações_de_Estoque/operacoes_de_estoque");
 
 inventoryRouter.route("/estoque/criar").post(createEstoque);
 inventoryRouter.route("/estoque/listar").get(getEstoque);
 inventoryRouter.route("/estoque/atualizar").patch(updateEstoque);
 inventoryRouter.route("/estoque/deletar").delete(deleteEstoque);
-inventoryRouter.route("/estoque/all").get(getEstoques);
+inventoryRouter.route("/estoque/:id").get(getSingle);
 
 module.exports = { inventoryRouter };
